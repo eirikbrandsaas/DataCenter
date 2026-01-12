@@ -1,0 +1,17 @@
+This state diagram illustrates the valid transitions between five project phases: Entry, Plan, Start, Complete, and Cancel.
+
+Valid transitions (shown as solid arrows):
+
+    Entry to Plan
+    Plan to Start
+    Plan to Cancel
+    Start to Complete
+    Start to Cancel
+
+Conceptual entry points (shown as dashed arrows):
+
+    Entry to Plan
+    Entry to Start
+    Entry to Complete
+
+Note: Solid arrows indicate allowable transitions. The dashed arrows from Entry represent the conceptual point at which a project enters the database, rather than an observed phase.

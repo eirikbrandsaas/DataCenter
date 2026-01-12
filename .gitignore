@@ -1,0 +1,29 @@
+# R project files
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+
+# Cline (AI tool)
+memory-bank/*.md
+
+# Don't track data, figs, or docs
+data/*.csv
+data/*.dta
+data/*.rds
+doc/*.doc*
+lit/*
+figures/*.pdf
+figures/vintages/*
+
+# Stata crap
+~*.do.stswp
+
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*~
