@@ -1,4 +1,4 @@
-# Readme
+# Estimating Aggregate Data Center Investment with Project-level Data
 
 This git repository contains all the code and materials to replicate "Estimating Aggregate Data Center Investment with Project-level Data" by Brandsaas, Garcia, Kurtzman, Nichols, and Zytek.
 
@@ -9,6 +9,8 @@ Our main result, Figure 3(a), displays our estimate, nowcast, and forecast for d
 <img src="figures/simulation_mean_bands_quarter_hist_evolution.gif" width="500">
 
 Below we show how the other charts evolved over vintages of the Dodge microdata.
+
+Replication instructions are the end of this readme.
 
 ## Animated Pictures
 
