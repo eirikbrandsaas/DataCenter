@@ -16,8 +16,9 @@ lit/*
 figures/*.pdf
 figures/vintages/*
 
-# Stata crap
+# Stata stuff
 ~*.do.stswp
+*.log
 
 
 # System files

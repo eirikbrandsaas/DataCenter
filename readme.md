@@ -53,11 +53,11 @@ This figure re-produces the center columns of the table, that is the GDP contrib
    - e.g., `cd res_data_center/code`
 
 4. Run the main script:
-   - e.g., `sh run.sh`
+   - On Linux you can run a shell script directly: `sh run.sh`. If not, you can run the three scripts in order, as specified in the shell script.
    - As of January 2026, this takes about 3 hours to run. Most of the time is spent iteratively creating the vintage data sets. The stata code takes about 30 minutes.
    - This program runs all the required code:
       * The R code (`Main.r`) can be run separately. It cleans and stacks all the Dodge data. This is very slow if you don't have enough memory and threads.
-      * The Stata code (`runall.do`) can be run separately. It calculates statistics, runs simulations, and generates plots. This should take 1-5 minutes depending on your computer, per vintage.
+      * The Stata code (`runall.do`) can be run separately. It calculates statistics, runs simulations, and generates plots. This should take 1-5 minutes depending on your computer, per vintage. If stata runs in batch mode, you can see the output in `code/runall.log`.
       * The R script (`create_vintage_gifs.R`) create `.gif`s that illustrate the evolution of the data over vintages of Dodge data. This should take about a minute.
 
 ### Things to Note
