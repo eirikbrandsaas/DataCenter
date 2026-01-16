@@ -2,20 +2,26 @@
 * File: runall.do
 * Purpose: Master do-file to run all project code
 ********************************************************************************
-forv m = 1/10 {
-	* Set working directory
-	if c(os) == "Windows" {
-	    cd "\\mcrlx1\mcr-hbs_data\dodge\res_data_center"
-	}
-	else {
-	    cd "/mcr/hbs_data/dodge/res_data_center"
-	}
+
+* Set working directory
+cd "/mcr/hbs_data/dodge/res_data_center"
+
+
+** Get vintages (stored in R-script). MMYYYY of first and last vintage.
+import delimited "data/vintage_start_end_dates.csv", clear varnames(1) stringcols(1)
+global vinm1 = substr(x[1], 1, 2) // Month of first vintage 
+global viny1 = substr(x[1], 3, 4) // Year of of first vintage
+global vinm2 = substr(x[_N], 1, 2) // Month of last vintage
+global viny2 = substr(x[_N], 3, 4) // Year of of first vintage
+
+forv y = $viny1/$viny2 {
+forv m = $vinm1/$vinm2 {
 
 	* Set up globals and project settings
  	do "code/globals.do"
 
 	* Calculate vintage cutoffs
-	global vintage_cutoff = tm(2025m`m')
+	global vintage_cutoff = tm(`y'm`m')
 	global vintage_str = string($vintage_cutoff, "%tm")
 
 	* Calculate forecast quarter based on vintage month
@@ -46,7 +52,8 @@ forv m = 1/10 {
 		global forecast_qtr = tq(`=`vintage_year'+1'q3)
 	}
 	global M = string(`m',"%02.0f") // Converts 1 -> 1, but leaves 10->10, i.e., add leading 0 to first 9 months
-	display "month `m'. vintage_month = `vintage_month'. String month = $M"
+	global Y = string(`y',"%02.0f") 
+	display "month `m'. vintage_month = `vintage_month'. String month = $M. String year = $Y"
 	display "Vintage: $vintage_str (month `vintage_month' of `vintage_year')"
 	display "Forecast through: " %tq $forecast_qtr
 
@@ -63,6 +70,7 @@ forv m = 1/10 {
 	do "code/simulation.do"   // Run Monte Carlo simulations
 	do "code/plot_sims.do"    // Plot simulation results
 	
+}
 }
 ********************************************************************************
 

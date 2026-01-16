@@ -4,7 +4,7 @@
 ********************************************************************************
 
 * Load the data center panel CSV
-import delimited "data/data_center_panel_${M}2025.csv", clear
+import delimited "data/data_center_panel_${M}${Y}.csv", clear
 
 * Count observations to describe data cleaning
 preserve
