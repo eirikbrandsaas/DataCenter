@@ -30,8 +30,8 @@ else if `vintage_month' == 12 {
 	global forecast_qtr = tq(`=`vintage_year'+1'q3)
 }
 
-global M = string(`_m',"%02.0f") // Converts 1 -> 1, but leaves 10->10, i.e., add leading 0 to first 9 months
-global Y = string(`_y',"%02.0f") 
+global M = string($m,"%02.0f") // Converts 1 -> 1, but leaves 10->10, i.e., add leading 0 to first 9 months
+global Y = string($y,"%02.0f") 
 display "month $m vintage_month = `vintage_month'. String month = $M. String year = $Y"
 display "Vintage: $vintage_str (month `vintage_month' of `vintage_year')"
 display "Forecast through: " %tq $forecast_qtr

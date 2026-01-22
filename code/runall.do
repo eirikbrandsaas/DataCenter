@@ -13,19 +13,24 @@ global vinm1 = substr(x[1], 1, 2) // Month of first vintage
 global viny1 = substr(x[1], 3, 4) // Year of of first vintage
 global vinm2 = substr(x[_N], 1, 2) // Month of last vintage
 global viny2 = substr(x[_N], 3, 4) // Year of of first vintage
+global vin_start = monthly("${viny1}m${vinm1}", "YM") // Convert to monthly values
+global vin_end   = monthly("${viny2}m${vinm2}", "YM")
 
-* Note, if you are running code manually, you have to set the month and year you want to use:
+* Note, if you are running code manually, you have to set the month and year 
+* you want to use and 
 // global y = 2025
 // global m = 11
 
-forv _y = $viny1/$viny2 {
-forv _m = $vinm1/$vinm2 {
-
+forv _v = $vin_start/$vin_end {
+	* Extract year and month from monthly value
+	local _y = year(dofm(`_v'))
+	local _m = month(dofm(`_v'))
+    
 	global y = `_y'
 	global m = `_m'
 	
 	do "code/convert_vintage_strings.do" Manipulate the strings
-	
+
 	* Set up globals and project settings
  	do "code/globals.do"
 	
