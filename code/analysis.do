@@ -96,6 +96,41 @@ scalar time_to_compl_coef    = _b[lvalue]
 scalar time_to_compl_coef_se = _se[lvalue]
 
 ********************************************************************************
+** Block 1B: Find data by project stage:
+********************************************************************************
+use data/data_center_project_level.dta, clear
+
+* --- Panel A: September 2025 Vintage ---
+
+* Time already in planning (for projects still in planning)
+gen time_in_planning = $vintage_cutoff - date_plan if inplanning == 1
+
+* Time already in construction (for projects started but not completed)
+gen time_in_construction = $vintage_cutoff - date_start if started == 1 & completed != 1 & cancelled != 1
+
+* Labels
+label var time_in_planning    "Months in planning"
+label var time_in_construction "Months in construction"
+label var value_plan          "\; Value in billions"
+label var value_start          "\; Value in billions"
+
+* Summary stats: Projects in Planning
+estpost tabstat time_in_planning value_plan if inplanning == 1, ///
+    statistics(mean sd p10 p50 p90 count) columns(statistics)
+
+esttab using "figures/summary_statistics_planning.tex", replace ///
+    cells("mean(fmt(%9.2f)) sd(fmt(%9.2f)) p10(fmt(%9.2f)) p50(fmt(%9.2f)) p90(fmt(%9.2f)) count(fmt(%9.0f))") ///
+    f nomtitles nonumbers noobs label collabels(none) nolines
+
+* Summary stats: Projects in Construction
+estpost tabstat time_in_construction value_start if started == 1 & completed != 1 & cancelled != 1, ///
+    statistics(mean sd p10 p50 p90 count) columns(statistics)
+
+esttab using "figures/summary_statistics_construction.tex", replace ///
+    cells("mean(fmt(%9.2f)) sd(fmt(%9.2f)) p10(fmt(%9.2f)) p50(fmt(%9.2f)) p90(fmt(%9.2f)) count(fmt(%9.0f))") ///
+    f nomtitles nonumbers noobs label collabels(none) nolines
+    
+********************************************************************************
 * Block 2: Find stock of plans
 ********************************************************************************
 
