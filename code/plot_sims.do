@@ -89,7 +89,7 @@ gen year = yofd(dofq(time))
 gen qtr  = quarter(dofq(time))
 merge 1:1 year qtr using "data/inv_dc.dta", keepusing(inv_dc)
 drop if _merge == 2
-
+replace inv_dc = . if time > $bea_qtr // Remove BEA data that is further along than what we know as of the current Dodge vintage
 twoway (rarea min_inv max_inv time, color($color1)) ///
        (rarea p1_inv p99_inv time, color($color2)) ///
        (rarea p5_inv p95_inv time, color($color3)) ///

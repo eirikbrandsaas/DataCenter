@@ -35,3 +35,25 @@ global Y = string($y,"%02.0f")
 display "month $m vintage_month = `vintage_month'. String month = $M. String year = $Y"
 display "Vintage: $vintage_str (month `vintage_month' of `vintage_year')"
 display "Forecast through: " %tq $forecast_qtr
+
+
+******************************
+* Calculate BEA GDP quarter known at time of Dodge vintage
+******************************
+if `vintage_month' == 1 {
+    global bea_qtr = tq(`=`vintage_year'-1'q3)
+}
+else if inlist(`vintage_month', 2, 3, 4) {
+    global bea_qtr = tq(`=`vintage_year'-1'q4)
+}
+else if inlist(`vintage_month', 5, 6, 7) {
+    global bea_qtr = tq(`vintage_year'q1)
+}
+else if inlist(`vintage_month', 8, 9, 10) {
+    global bea_qtr = tq(`vintage_year'q2)
+}
+else if inlist(`vintage_month', 11, 12) {
+    global bea_qtr = tq(`vintage_year'q3)
+}
+
+display "Dodge vintage: $vintage_str -> BEA data through: " %tq $bea_qtr
