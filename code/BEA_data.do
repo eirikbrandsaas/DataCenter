@@ -26,8 +26,11 @@ rename igdfnqipp_xcw_q equip_real
 rename IGDFNSFCOD_Q    cpip
 rename IGDFNSFCOD_XCW_Q cpip_real
 
-replace cpip      = cpip / 1000
-replace cpip_real = cpip_real / 1000
+sum cpip
+assert `r(mean)' > 15 // Include assertion: Sometimes BEA change the unit (e.g., from millions to billions)
+assert `r(mean)' < 100 // Include assertion: 
+replace cpip      = cpip 
+replace cpip_real = cpip_real 
 
 gen year = year(date)
 gen qtr  = quarter(date)
